@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+
+// Dummy account details for demonstration
+string accountNumber = "12345";
+string pin = "1234";
+double balance = 1000.0;
+
+// Function to display the main menu
+void displayMenu() {
+    cout << "\nATM Menu:" << endl;
+    cout << "1. Check Balance" << endl;
+    cout << "2. Deposit Money" << endl;
+    cout << "3. Withdraw Money" << endl;
+    cout << "4. Exit" << endl;
+}
+
+int main() {
+    string enteredAccountNumber, enteredPin;
+    int choice;
+    
+    cout << "Welcome to the ATM!" << endl;
+    
+    // User authentication
+    cout << "Enter Account Number: ";
+    cin >> enteredAccountNumber;
+    cout << "Enter PIN: ";
+    cin >> enteredPin;
+    
+    if (enteredAccountNumber == accountNumber && enteredPin == pin) {
+        cout << "Authentication Successful!" << endl;
+        
+        // Main ATM loop
+        do {
+            displayMenu();
+            cout << "Enter your choice: ";
+            cin >> choice;
+            
+            switch (choice) {
+                case 1:
+                    cout << "Your Balance: $" << balance << endl;
+                    break;
+                case 2:
+                    double depositAmount;
+                    cout << "Enter Deposit Amount: $";
+                    cin >> depositAmount;
+                    if (depositAmount > 0) {
+                        balance += depositAmount;
+                        cout << "Deposit Successful. New Balance: $" << balance << endl;
+                    } else {
+                        cout << "Invalid Amount. Please enter a positive amount." << endl;
+                    }
+                    break;
+                case 3:
+                    double withdrawAmount;
+                    cout << "Enter Withdraw Amount: $";
+                    cin >> withdrawAmount;
+                    if (withdrawAmount > 0 && withdrawAmount <= balance) {
+                        balance -= withdrawAmount;
+                        cout << "Withdrawal Successful. New Balance: $" << balance << endl;
+                    } else {
+                        cout << "Invalid Amount or Insufficient Balance." << endl;
+                    }
+                    break;
+                case 4:
+                    cout << "Thank you for using the ATM. Goodbye!" << endl;
+                    break;
+                default:
+                    cout << "Invalid Choice. Please try again." << endl;
+            }
+        } while (choice != 4);
+    } else {
+        cout << "Authentication Failed. Please try again." << endl;
+    }
+    
+    return 0;
+}
